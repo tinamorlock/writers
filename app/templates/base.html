@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}" />
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    {% endblock %}
+</head>
+<body>
+    <div class="writers--home-main">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="writers--home-footer">
+        {% block footer %}
+        &copy; copyright 2023 by Tina Morlock
+        {% endblock %}
+    </div>

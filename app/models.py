@@ -27,6 +27,18 @@ class User(Base):
     genre = Column(String, nullable=True)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
 
+class PenName(Base):
+    __tablename__ = "pennames"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False)
+    genre = Column(String, nullable=False)
+    subgenre = Column(String, nullable=True)
+
+    user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+
+    owner = relationship("User")
+
 class Project(Base):
     __tablename__ = "projects"
 
@@ -38,12 +50,16 @@ class Project(Base):
     genre = Column(String, nullable=False)
     subgenre = Column(String, nullable=True)
     status = Column(String, nullable=False)
+    manuscript_url = Column(String, nullable=False)
     is_complete = Column(Boolean, nullable=False, server_default='False')
+    is_published = Column(Boolean, nullable=False, server_default='False')
     is_public = Column(Boolean, nullable=False, server_default='False')
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+    published_on = Column(TIMESTAMP(timezone=True), nullable=True)
 
     user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    penname_id = Column(Integer, ForeignKey('pennames.id', ondelete="CASCADE"), nullable=False)
 
     owner = relationship("User")
 
